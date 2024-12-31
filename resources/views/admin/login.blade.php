@@ -70,7 +70,10 @@
                         <div class="app-brand justify-content-left">
                             <a href="index.html" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo">
-                                    <img src="{{ asset('assets/images/dream.svg') }}" width="300px" hight="100px " alt="">
+                                    <img src="{{ asset('assets/images/protocloud.png') }}" width="300px" hight="100px " alt="" style="
+                                    width: 150px;
+                                    margin-left: 100px;
+                                ">
                                 </span>
 
                             </a>

@@ -28,16 +28,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-
-
-
 </head>
 
 <body>
   <div class="container-scroller">
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-        <a class="sidebar-brand brand-logo" href="{{route('admin.dashboard')}}"><img src="{{ asset('assets/images/dream.svg') }}" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo" href="{{route('admin.dashboard')}}"><img src="{{ asset('assets/images/protocloud.png') }}" alt="logo" style="height: 130px;" /></a>
         <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="{{route('admin.dashboard')}}"><img src="{{ asset('assets/images/logo-mini.svg') }}" alt="logo" /></a>
       </div>
       <ul class="nav mt-5">
@@ -129,7 +126,7 @@
       </div>
       <nav class="navbar col-lg-12 col-12 p-lg-0 fixed-top d-flex flex-row">
         <div class="navbar-menu-wrapper d-flex align-items-stretch justify-content-between">
-          <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+          <a class="navbar-brand brand-logo-mini align-self-center d-lg-none" href="index.html"><img src="assets/images/protocloud.png" alt="logo" /></a>
           <button class="navbar-toggler navbar-toggler align-self-center mr-2" type="button" data-toggle="minimize">
             <i class="mdi mdi-menu"></i>
           </button>
