@@ -29,14 +29,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 
+
+
 </head>
 
 <body>
   <div class="container-scroller">
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
       <div class="text-center sidebar-brand-wrapper d-flex align-items-center">
-        <a class="sidebar-brand brand-logo" href="{{route('admin.dashboard')}}"><img src="{{ asset('assets/images/protocloud.png') }}" alt="logo" style="height: 115px;" /></a>
-        <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="{{route('admin.dashboard')}}"><img src="{{ asset('assets/images/protocloud.png') }}" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo" href="{{route('admin.dashboard')}}"><img src="{{ asset('assets/images/dream.svg') }}" alt="logo" /></a>
+        <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="{{route('admin.dashboard')}}"><img src="{{ asset('assets/images/logo-mini.svg') }}" alt="logo" /></a>
       </div>
       <ul class="nav mt-5">
         <!-- <li class="nav-item nav-profile">

@@ -55,9 +55,6 @@ class CalendarController extends Controller
 
     public function UserAttendence(Request $req)
     {
-        $today = now()->toDateString();
-        $user = Auth::user();
-
         if ($req->punch_out != "") {
             Attendance::updateOrCreate(
                 ['date' => $req->date],
@@ -75,17 +72,6 @@ class CalendarController extends Controller
                     'status' => $req->status
                 ]
             );
-        }
-
-        $attendance = Attendance::where('date', $today)
-            ->where('user_id', $user->id)
-            ->first();
-        if (!$attendance) {
-            Attendance::create([
-                'user_id' => $user->id,
-                'date' => $today,
-                'status' => 'Absent', //Autometicaly Mark Absent.
-            ]);
         }
     }
 
@@ -156,59 +142,24 @@ class CalendarController extends Controller
         $WFH = User::where('work_type', 'WFH');
         $countWFH = $WFH->count();
 
-
-        // Bonus Deatails Show
-        if ($req->ajax()) {
-            $bonusSalaries = AttendenceDeatail::where('user_id', $id)
-                ->whereYear('created_at', Carbon::now()->year)->get();
-
-            $formatData = json_decode($bonusSalaries[0]->bonuses);
-
-            return dataTables()->of($formatData)
-                ->make(true);
-        }
-
         return view('admin.salaryBonus', compact('counttotal', 'countWFO', 'countWFH', 'id'));
     }
 
-    // Salary Bonus Store
-    public function salaryBonusStore(Request $request, $id)
+    public function salaryBonusStore(Request $req, $id)
     {
 
-        // Validation
-        $request->validate([
-            'bonus_name' => 'required',
-            'bonus_salary' => 'required',
+        $currentSalary = AttendenceDeatail::where('user_id', $id)->value('total_salary');
+        // Calculate new total_salary
+        $newTotalSalary = $currentSalary + $req->bonus_salary;
+
+        $salary = AttendenceDeatail::where('user_id', $id)->update([
+            'bonus_name' => $req->bonus_name,
+            'bonus_salary' => $req->bonus_salary,
+            'total_salary' => $newTotalSalary
         ]);
 
-        $attendance = AttendenceDeatail::where('user_id', $id)->first();
-
-        if ($attendance) {
-
-            //dd($request->all());
-
-            $newBonus = [
-                'bonus_name' => $request->bonus_name,
-                'bonus_salary' => $request->bonus_salary,
-            ];
-
-            $bonuses = json_decode($attendance->bonuses) ?? [];
-
-            $bonuses[] = $newBonus;
-            //dd(json_encode($bonuses));
-            // Salary + Bonus salary
-            $currentSalary = $attendance->total_salary;
-            $newTotalSalary = $currentSalary + $request->bonus_salary;
-
-
-            //dd($bonuses);
-            // Update the bonuses column
-            $attendance->update([
-                'bonuses' => json_encode($bonuses),
-                'total_salary' => $newTotalSalary
-            ]);
-
-            return redirect()->back()->with('success', "Bonus Add SuccessFully.");
+        if ($salary) {
+            return redirect()->route('admin.dashboard')->with('success', "Bonus Add SuccessFully.");
         }
     }
 }
