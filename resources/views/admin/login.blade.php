@@ -68,16 +68,16 @@
                     <div class="card-body">
                         <!-- Logo -->
                         <div class="app-brand justify-content-left">
-                            <a href="index.html" class="app-brand-link gap-2">
+                            <a href="#" class="app-brand-link gap-2">
                                 <span class="app-brand-logo demo">
-                                    <img src="{{ asset('assets/images/dream.svg') }}" width="300px" hight="100px " alt="">
+                                    <img src="{{ asset('assets/images/protocloud.png') }}" width="300px" hight="100px " alt="" style="width:134px;margin-left: 115px;">
                                 </span>
 
                             </a>
                         </div>
                         <!-- /Logo -->
-                        <h4 class="mb-1">Welcome to login! 👋</h4>
-                        <p class="mb-6">Please sign-in to your account and start the adventure</p>
+                        <h4 class="mb-1 text-center">Welcome to login! 👋</h4>
+                        <p class="mb-6 text-center">Please sign-in to your account and start the adventure</p>
                         <br>
                         @if(session()->has('success'))
                         <div class="alert alert-success" role="alert" id="success-alert">
