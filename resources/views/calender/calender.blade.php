@@ -65,83 +65,106 @@
         </div>
 
 
-        <div class="col-12 mb-2">
-            <div class="row g-0">
-                <div class="col-md-12">
-                    <div class="card-body px-0 py-5">
-                        <a style="text-decoration: none;" class="editicon" href="http://localhost/ecommerce/admin/profile/edit.php?id=141">
-                        </a>
-                        <h3>Information</h3>
-                        <hr class="mt-0 mb-4">
-                        <div class="row pt-1">
-                            <div class="col-3">
-                                <h4 class="mt-0">Profile image</h4>
-                                <img src="{{ asset('/uploads/banners/'. Auth::user()->Profile) }}" class="rounded-circle" alt="Avatar" width="100px">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-9 mb-2">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-body p-4">
+                                <a style="text-decoration: none;" class="editicon" href="http://localhost/ecommerce/admin/profile/edit.php?id=141">
+                                </a>
+                                <h3>Information</h3>
+                                <hr class="mt-0 mb-4">
+                                <div class="row pt-1">
+                                    <div class="col-3">
+                                        <h4 class="mt-0">Profile image</h4>
+                                        <img src="{{ asset('/uploads/banners/'. Auth::user()->Profile) }}" class="rounded-circle" alt="Avatar" width="100px">
+                                    </div>
+                                    <div class="col-3">
+                                        <h4>Name</h4>
+                                        <p class="text-muted">{{Auth::user()->name}}</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <h4>Email</h4>
+                                        <p class="text-muted">{{Auth::user()->email}}</p>
+                                    </div>
+                                    <div class="col-3">
+                                        <h4>Phone No.</h4>
+                                        <p class="text-muted">{{Auth::user()->phone_no}}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-3">
-                                <h4>Name</h4>
-                                <p class="text-muted">{{Auth::user()->name}}</p>
-                            </div>
-                            <div class="col-3">
-                                <h4>Email</h4>
-                                <p class="text-muted">{{Auth::user()->email}}</p>
-                            </div>
-                            <div class="col-3">
-                                <h4>Phone No.</h4>
-                                <p class="text-muted">{{Auth::user()->phone_no}}</p>
-                            </div>
+                            <!-- <div class="row pt-1 mb-3">
+                                <div class="col-md-4  text-center " style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                                    <h4 class="mt-3">Profile image</h4>
+                                    <img src="{{ asset('/uploads/banners/'. Auth::user()->Profile) }}" class="w-px-150 h-auto rounded-circle" alt="Avatar" width="150px">
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-        <!-- Calendar -->
-        <div id="calendar_main" class="mt-0" style="
-         padding-bottom: 120px;">
-            <h3>Attendence</h3>
-            <hr class="mt-0 mb-4">
-            <div class="bg-primary text-white px-2">
-                <div class="container">
-                    <div class="row text-center">
-                        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 my-2">
-                            <h2 class="mt-2"> <i class="fa-solid fa-calendar-days"></i> Calendar </h2>
-                        </div>
-                        <!-- Present -->
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 my-2">
-                            <div class="card shadow-sm bg-success text-white mx-3">
-                                <div class="card-body py-2">
-                                    <h4 class="m-0">P</h4>
-                                    <span>{{isset($attendenceDeatailShow) &&  $attendenceDeatailShow?->working_days ?? 0 }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Absent -->
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 my-2">
-                            <div class="card shadow-sm bg-danger text-white mx-3">
-                                <div class="card-body py-2">
-                                    <h4 class="m-0">A</h4>
-                                    <span>{{isset($attendenceDeatailShow) &&  $attendenceDeatailShow?->leave_days ?? 0 }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Half Day -->
-                        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 my-2">
-                            <div class="card shadow-sm bg-warning text-white mx-3">
-                                <div class="card-body py-2">
-                                    <h4 class="m-0">HF</h4>
-                                    <span class="half-Day">{{isset($attendenceDeatailShow) &&  $attendenceDeatailShow?->half_days ?? 0 }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-3">
+                    <button id="calenderToggle" class="col-12 btn btn-warning py-2 px-2 text-white my-4 mt-5"><i class="fa-solid fa-calendar-days px-2"></i> Attendence</button>
                 </div>
             </div>
-            <div id="calender" class="border px-2"></div>
-        </div>
+            <!-- /.row -->
+        </div><!--/. container-fluid -->
 
     </div>
+
+
+    <!-- Calendar -->
+    <div id="calendar_main" class="mt-0" style="
+    padding-bottom: 120px;">
+        <div class="bg-primary text-white px-2">
+            <div class="container mt-5">
+                <div class="row text-center">
+                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 my-2">
+                        <h2 class="mt-2"> <i class="fa-solid fa-calendar-days"></i> Calendar </h2>
+                    </div>
+                    <!-- Present -->
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 my-2">
+                        <div class="card shadow-sm bg-success text-white mx-3">
+                            <div class="card-body py-2">
+                                <h4 class="m-0">P</h4>
+                                <span>{{isset($attendenceDeatailShow) &&  $attendenceDeatailShow?->working_days ?? 0 }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Absent -->
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 my-2">
+                        <div class="card shadow-sm bg-danger text-white mx-3">
+                            <div class="card-body py-2">
+                                <h4 class="m-0">A</h4>
+                                <span>{{isset($attendenceDeatailShow) &&  $attendenceDeatailShow?->leave_days ?? 0 }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Half Day -->
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 my-2">
+                        <div class="card shadow-sm bg-warning text-white mx-3">
+                            <div class="card-body py-2">
+                                <h4 class="m-0">HF</h4>
+                                <span class="half-Day">{{isset($attendenceDeatailShow) &&  $attendenceDeatailShow?->half_days ?? 0 }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Total Salary -->
+                    <!-- <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 my-2">
+                        <div class="card shadow-sm bg-warning text-white mx-3">
+                            <div class="card-body py-2">
+                                <h5 class="m-0 mb-1">Total Salary</h5>
+                                <span>{{isset($attendenceDeatailShow) &&  $attendenceDeatailShow?->total_salary ?? 0 }}</span>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <div id="calender" class="border px-2"></div>
+    </div>
+
+</div>
 </div>
 
 
@@ -399,6 +422,13 @@
                 timer: 2000
             });
         }
+    });
+
+
+    // Calender Hide/Show
+    $('#calendar_main').hide();
+    $("#calenderToggle").on('click', () => {
+        $('#calendar_main').toggle();
     });
 </script>
 @endsection
