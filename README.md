@@ -40,4 +40,4 @@ Follow these steps to set up the Office Management Laravel project:
 
 ### **1. Clone the Repository**
 ```bash
-git clone https://github.com/YourUsername/office-management-laravel.git
+git clone https://github.com/ankitsaini009/Office-Management-Laravel-Project.git
