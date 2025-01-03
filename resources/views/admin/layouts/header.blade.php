@@ -4,6 +4,7 @@
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8" />
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Dreamlockmr</title>
   <link rel="stylesheet" href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}" />
@@ -38,22 +39,17 @@
         <a class="sidebar-brand brand-logo-mini pl-4 pt-3" href="{{route('admin.dashboard')}}"><img src="{{ asset('assets/images/logo-mini.svg') }}" alt="logo" /></a>
       </div>
       <ul class="nav mt-5">
-        <!-- <li class="nav-item nav-profile">
-          <a href="{{route('admin.dashboard')}}" class="nav-link" style="
-          margin-top: -18px;">
-            <div class="nav-profile-image">
-              <img src="{{ asset('assets/images/faces/face1.jpg') }}" alt="profile" />
-              <span class="login-status online"></span>
-            </div>
-            <div class="nav-profile-text d-flex flex-column pr-3">
-              <span class="font-weight-medium mb-2">{{auth()->user()?->name}}</span>
-            </div>
-          </a>
-        </li> -->
         <li class="nav-item">
           <a class="nav-link" href="{{route('admin.dashboard')}}">
             <i class="fa-solid fa-gauge menu-icon"></i>
             <span class="menu-title">Dashboard</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('group.chat')}}">
+            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+            <span class="menu-title">Group Chat</span>
           </a>
         </li>
 
@@ -132,12 +128,14 @@
           </button>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              @if(Auth::user()->role == "Admin" || Auth::user()->role == "HR")
+
               <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
                 <i class="mdi mdi-bell-outline"></i>
                 <span class="count count-varient1" id="userCount">0</span>
+                <span class="count count-varient1" id="messageCount">0</span>
               </a>
-              <div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list" aria-labelledby="notificationDropdown" id="notificationDropdown">
+
+              <div class="dropdown-menu navbar-dropdown navbar-dropdown-large preview-list" aria-labelledby="notificationDropdown" id="notificationDropdown" style="max-height: 300px; overflow-y: auto;">
                 <h6 class="p-3 mb-0">Notifications</h6>
                 <div id="notificationsList">
                   <!-- Notifications will be dynamically loaded here -->
@@ -147,12 +145,14 @@
                   <p class="mb-0">Total Last 2 Days Users: <span id="userCount2">0</span></p>
                 </div>
               </div>
-              @endif
+
               <script>
                 document.addEventListener('DOMContentLoaded', function() {
                   const notificationDropdown = document.getElementById('notificationsList');
                   const userCount = document.getElementById('userCount');
                   const userCount2 = document.getElementById('userCount2');
+                  const messageCount = document.getElementById('messageCount');
+                  const notificationSound = new Audio('{{ asset("assets/sounds/notification.mp3") }}');
 
                   // Fetch recent users
                   async function fetchNotifications() {
@@ -182,7 +182,6 @@
                           <div class="preview-item-content">
                               <p class="mb-0">${user.name}</p><span class="text-small text-muted">${user.role}</span>
                           </div>
-                          <button style="display:none;" class="btn btn-danger btn-sm remove-btn" data-id="${user.id}">X</button>
                       `;
                       notificationDropdown.appendChild(notificationItem);
 
@@ -191,6 +190,9 @@
                         removeNotification(user.id, notificationItem);
                       });
                     });
+
+                    // Play notification sound
+                    notificationSound.play();
                   }
 
                   // Remove a notification

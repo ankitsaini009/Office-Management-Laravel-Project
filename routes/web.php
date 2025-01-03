@@ -11,6 +11,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ChartbortController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Auth\SocialiteController;
 
 /*
@@ -44,9 +45,17 @@ Route::group(['prefix' => '/'], function () {
 
 	Route::group(['middleware' => 'admin.auth'], function () {
 
+
+		Route::get('/group-chat', [ChatController::class, 'index'])->name('group.chat');
+		Route::get('/messages', [ChatController::class, 'fetchMessages']);
+		Route::post('/messages', [ChatController::class, 'sendMessage']);
+
+		// Route::post('/groups', [ChatController::class, 'createGroup']);
+		// Route::post('/messages', [ChatController::class, 'sendMessage']);
+		// Route::get('/groups/{groupId}/messages', [ChatController::class, 'fetchMessages']);
+
 		Route::resource('roles', RoleController::class);
 		Route::resource('permissions', PermissionController::class);
-
 
 		Route::get('/admin/recent-users', [App\Http\Controllers\AdminController::class, 'getRecentUsers']);
 		Route::post('/admin/remove-notification/{id}', [App\Http\Controllers\AdminController::class, 'removeNotification']);

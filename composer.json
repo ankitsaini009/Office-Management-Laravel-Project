@@ -17,6 +17,7 @@
         "mpdf/mpdf": "^8.2",
         "norkunas/youtube-dl-php": "^2.6",
         "php-ai/php-ml": "^0.10.0",
+        "pusher/pusher-php-server": "^7.2",
         "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-permission": "^6.10",
         "spatie/pdf-to-text": "^1.52",
