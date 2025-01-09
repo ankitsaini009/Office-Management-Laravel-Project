@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Attendance;
+use Illuminate\Support\Carbon;
+use App\Models\AttendenceDeatail;
 
 
 class DashboardController extends Controller
@@ -48,6 +50,13 @@ class DashboardController extends Controller
         $user_ip = $_SERVER['REMOTE_ADDR'];
         //dd($user_ip);
 
+        // Employee Attendence Deatails Logic 
+        $month =  Carbon::now()->format('Y-m');
+        $attendenceDeatailShow = AttendenceDeatail::where([
+            'user_id' => Auth::user()->id,
+            'month' => $month
+        ])->first();
+
         //dd($office_ip);
         if ($request->ajax()) {
             $roles = User::where('status', 1)
@@ -74,6 +83,6 @@ class DashboardController extends Controller
                 ->rawColumns(['actions']) // Allow HTML for permissions and actions columns
                 ->make(true);
         }
-        return view('admin.dashboard', compact('counttotal', 'countWFO', 'countWFH', "attendences_data", "office_ip", "user_ip"));
+        return view('admin.dashboard', compact('counttotal', 'attendenceDeatailShow', 'countWFO', 'countWFH', "attendences_data", "office_ip", "user_ip"));
     }
 }
