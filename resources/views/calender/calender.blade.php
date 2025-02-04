@@ -160,7 +160,7 @@
                     <li class="border bg-success py-2 px-3 rounded text-white shadow list-inline-item" data-value="Present">
                         Punch In
                     </li>
-                    <li class="border bg-success py-2 px-3 rounded text-white shadow list-inline-item" data-value="punch_out">
+                    <li class="border bg-success py-2 px-3 rounded text-white shadow list-inline-item" data-value="Present">
                         Punch out
                     </li>
                     <li class="border bg-danger py-2 px-3 rounded text-white shadow list-inline-item" data-value="Absent">
@@ -269,12 +269,20 @@
                     minute: "2-digit",
                 });
 
-                // Punch Out Time
-                let punch_out = new Date(element.punch_out).toLocaleTimeString("en-IN", {
-                    timeZone: "Asia/Kolkata",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                });
+                let punch_out;
+                if (element.punch_out != null) {
+                    // Punch Out Time
+                    let punch_out = new Date(element.punch_out).toLocaleTimeString("en-IN", {
+                        timeZone: "Asia/Kolkata",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    });
+
+                } else {
+                    punch_out = "00:00"
+                }
+
+                //alert(punch_out);
 
                 if (element.start === selectDay) {
                     styleAttendenceDate(cell, element.title, attendence_time, punch_out);
@@ -341,6 +349,9 @@
                     text: `${attendence} Attendence saved successfully.`,
                     icon: "success",
                     timer: 2000
+                }).then(() => {
+                    //  Hide status popup model   
+                    window.location.reload();
                 });
 
 

@@ -55,36 +55,38 @@ class CalendarController extends Controller
 
     public function UserAttendence(Request $req)
     {
+        //dd($req->all());
+
         $today = now()->toDateString();
         $user = Auth::user();
 
-        if ($req->punch_out != "") {
-            Attendance::updateOrCreate(
-                ['date' => $req->date],
-                [
-                    'user_id' => $req->user_id,
-                    'punch_out' => $req->punch_out
-                ]
-            );
+        $alreadyPunched = Attendance::where('date', $today)
+            ->where('user_id', $user->id)
+            ->first();
+
+        if ($alreadyPunched) {
+
+            $alreadyPunched->update([
+                'punch_out' => $req->punch_out,
+                'status' => $req->status
+            ]);
         } else {
-            Attendance::updateOrCreate(
-                ['date' => $req->date],
-                [
-                    'user_id' => $req->user_id,
-                    'date' => $req->date,
-                    'status' => $req->status
-                ]
-            );
+            Attendance::create([
+                'user_id' => $user->id,
+                'date' => $today,
+                'status' => $req->status
+            ]);
         }
 
         $attendance = Attendance::where('date', $today)
             ->where('user_id', $user->id)
             ->first();
+
         if (!$attendance) {
             Attendance::create([
                 'user_id' => $user->id,
                 'date' => $today,
-                'status' => 'Absent', //Autometicaly Mark Absent.
+                'status' => 'Absent', // Automatically Mark Absent.
             ]);
         }
     }
